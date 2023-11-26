@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Animal_Status;
+using System;
 using System.Collections.Generic;
 
 namespace Animal_Status;
 
-public partial class Pet
+public partial class PetDTO
 {
     public int PetId { get; set; }
 
@@ -29,19 +30,19 @@ public partial class Pet
 
     public virtual ICollection<NoteDTO> Notes { get; set; } = new List<NoteDTO>();
 
-    public virtual User Owner { get; set; } = null!;
+    public virtual UserDTO Owner { get; set; } = null!;
 
-    public virtual ICollection<PetVaccination> PetVaccinations { get; set; } = new List<PetVaccination>();
+    public virtual ICollection<PetVaccinationDTO> PetVaccinations { get; set; } = new List<PetVaccinationDTO>();
 
-    public virtual ICollection<PetVeterinaryRecord> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecord>();
+    public virtual ICollection<PetVeterinaryRecordDTO> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecordDTO>();
 
-    public virtual ICollection<SleepAndRest> SleepAndRests { get; set; } = new List<SleepAndRest>();
+    public virtual ICollection<SleepAndRestDTO> SleepAndRests { get; set; } = new List<SleepAndRestDTO>();
 
     public virtual ICollection<StressLevelDTO> StressLevels { get; set; } = new List<StressLevelDTO>();
 
     public virtual AnimalTypeDTO? Type { get; set; }
 
-    public virtual ICollection<VeterinaryRecord> VeterinaryRecords { get; set; } = new List<VeterinaryRecord>();
+    public virtual ICollection<VeterinaryRecordDTO> VeterinaryRecords { get; set; } = new List<VeterinaryRecordDTO>();
 
     public virtual ICollection<WeightAndHeightDTO> WeightAndHeights { get; set; } = new List<WeightAndHeightDTO>();
 }

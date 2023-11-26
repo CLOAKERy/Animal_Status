@@ -24,7 +24,6 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

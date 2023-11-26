@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Animal_Status;
 
-public partial class SleepAndRest
+public partial class SleepAndRestDTO
 {
     public int SleepAndRestId { get; set; }
 
@@ -13,5 +13,5 @@ public partial class SleepAndRest
 
     public int PetId { get; set; }
 
-    public virtual Pet Pet { get; set; } = null!;
+    public virtual PetDTO Pet { get; set; } = null!;
 }

@@ -11,5 +11,5 @@ public partial class VaccinationDTO
 
     public DateTime VaccinationDate { get; set; }
 
-    public virtual ICollection<PetVaccination> PetVaccinations { get; set; } = new List<PetVaccination>();
+    public virtual ICollection<PetVaccinationDTO> PetVaccinations { get; set; } = new List<PetVaccinationDTO>();
 }

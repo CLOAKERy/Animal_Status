@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Animal_Status;
 
-public partial class User
+public partial class UserDTO
 {
     public int UserId { get; set; }
 
@@ -15,7 +15,7 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public virtual ICollection<Pet> Pets { get; set; } = new List<Pet>();
+    public virtual ICollection<PetDTO> Pets { get; set; } = new List<PetDTO>();
 
     public virtual RoleDTO Role { get; set; } = null!;
 }

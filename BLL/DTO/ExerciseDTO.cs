@@ -13,5 +13,5 @@ public partial class ExerciseDTO
 
     public int PetId { get; set; }
 
-    public virtual Pet Pet { get; set; } = null!;
+    public virtual PetDTO Pet { get; set; } = null!;
 }
