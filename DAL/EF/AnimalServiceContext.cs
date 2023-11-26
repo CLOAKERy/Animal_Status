@@ -6,8 +6,9 @@ namespace Animal_Status;
 
 public partial class AnimalServiceContext : DbContext
 {
-    public AnimalServiceContext()
+    public AnimalServiceContext(string connectionString)
     {
+        ConnectionString = connectionString;
     }
 
     public AnimalServiceContext(DbContextOptions<AnimalServiceContext> options)
@@ -15,6 +16,7 @@ public partial class AnimalServiceContext : DbContext
     {
     }
 
+    public string ConnectionString;
     public virtual DbSet<AnimalType> AnimalTypes { get; set; }
 
     public virtual DbSet<Behavior> Behaviors { get; set; }
@@ -47,7 +49,7 @@ public partial class AnimalServiceContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=CLOAKER\\SQLEXPRESS;Initial Catalog=AnimalService;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer(ConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

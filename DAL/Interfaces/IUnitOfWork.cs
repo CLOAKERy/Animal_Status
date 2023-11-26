@@ -24,5 +24,6 @@ namespace DAL.Interfaces
         IRepository<Vaccination> Vaccinations { get; }
         IRepository<VeterinaryRecord> VeterinaryRecord { get; }
         IRepository<WeightAndHeight> WeightAndHeights { get; }
+        void Save();
     }
 }
