@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Animal_Status;
 
-public partial class PetVaccination
+public partial class PetVaccinationDTO
 {
     public int PetVaccinationId { get; set; }
 
@@ -11,7 +11,7 @@ public partial class PetVaccination
 
     public int VaccinationId { get; set; }
 
-    public virtual Pet Pet { get; set; } = null!;
+    public virtual PetDTO Pet { get; set; } = null!;
 
-    public virtual Vaccination Vaccination { get; set; } = null!;
+    public virtual VaccinationDTO Vaccination { get; set; } = null!;
 }

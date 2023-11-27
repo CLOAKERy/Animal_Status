@@ -19,5 +19,5 @@ public partial class VeterinaryRecordDTO
 
     public virtual PetDTO Pet { get; set; } = null!;
 
-    public virtual ICollection<PetVeterinaryRecord> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecord>();
+    public virtual ICollection<PetVeterinaryRecordDTO> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecordDTO>();
 }
