@@ -24,8 +24,11 @@
   <ItemGroup>
     <Folder Include="BusinessModel\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Mapping\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 
 </Project>
