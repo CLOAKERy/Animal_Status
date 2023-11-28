@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Folder Include="BusinessModel\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

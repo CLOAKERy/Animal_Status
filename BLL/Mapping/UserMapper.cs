@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Animal_Status;
 
 namespace BLL.Mapping
 {
-    internal class UserMapper
+    public class UserMapper : EntityMapper<User, UserDTO>
     {
     }
 }

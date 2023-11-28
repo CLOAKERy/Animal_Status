@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Animal_Status;
 
 namespace BLL.Mapping
 {
-    internal class SleepAndRestMapper
+    public class SleepAndRestMapper : EntityMapper<SleepAndRest, SleepAndRestDTO>
     {
     }
 }
