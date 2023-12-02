@@ -1,6 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Animal_Status</title>
@@ -12,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Animal_Status</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="img/logo.png" width="108px" height="35px" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,13 +27,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="AdminPanel" asp-action="index">Панель админа</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    Авторизация
+                                </button>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <input  class="btn btn-primary" type="submit" value="Выход" />
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    
     <div class="container">
         <main role="main" class="pb-3">
+           
             @RenderBody()
         </main>
     </div>
@@ -44,6 +64,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showLoginForm() {
+            document.getElementById('modalTitle').innerHTML = 'Авторизация';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+        }
+
+        function showRegistrationForm() {
+            document.getElementById('modalTitle').innerHTML = 'Регистрация';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registrationForm').style.display = 'block';
+        }
+
+    </script>
+    @await Html.PartialAsync("_ModalPartial")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

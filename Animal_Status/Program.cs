@@ -3,6 +3,7 @@ using BLL.Interfaces;
 using BLL.Services;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +13,19 @@ builder.Services.AddDbContext<AnimalServiceContext>(options => options.UseSqlSer
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+            options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+        });
+
 
 builder.Services.AddAutoMapper(typeof(BLL.Mapping.UserMapper));
 builder.Services.AddAutoMapper(typeof(Animal_Status.Mapping.UserMapper));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
 var app = builder.Build();
@@ -33,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
