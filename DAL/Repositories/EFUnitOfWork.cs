@@ -144,7 +144,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<User> Users
+        public IUserRepository Users
         {
             get
             {

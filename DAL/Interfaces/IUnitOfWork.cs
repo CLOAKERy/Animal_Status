@@ -20,7 +20,7 @@ namespace DAL.Interfaces
         IRepository<Role> Roles { get; }
         IRepository<SleepAndRest> SleepAndRests { get; }
         IRepository<StressLevel> StressLevel { get; }
-        IRepository<User> Users { get; }
+        IUserRepository Users { get; }
         IRepository<Vaccination> Vaccinations { get; }
         IRepository<VeterinaryRecord> VeterinaryRecord { get; }
         IRepository<WeightAndHeight> WeightAndHeights { get; }

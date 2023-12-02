@@ -1,0 +1,59 @@
+﻿@model Animal_Status.AccountViewModel
+
+@{
+
+}
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Авторизация</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Форма для входа (изначально видима) -->
+                <form id="loginForm" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email адрес</label>
+                        <input asp-for="loginViewModel.Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Пароль</label>
+                        <input asp-for="loginViewModel.Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                </form>
+
+                <!-- Форма для регистрации (изначально скрыта) -->
+                <form id="registrationForm" style="display:none;" asp-controller="Account" asp-action="Register">
+                    <div class="form-group">
+                        <label for="exampleInputName">Имя</label>
+                        <input asp-for="registerViewModel.Name" type="text" class="form-control" id="exampleInputName" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">Email адрес</label>
+                        <input asp-for="registerViewModel.Email" type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Введите email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword2">Пароль</label>
+                        <input asp-for="registerViewModel.Password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword2">Повторите пароль</label>
+                        <input asp-for="registerViewModel.PasswordConfirm" type="password" class="form-control" id="exampleInputPassword2" placeholder="Повторите пароль">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                </form>
+
+                <!-- Кнопки для переключения между формами -->
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-link" onclick="showLoginForm()">Вход</button>
+                    <button type="button" class="btn btn-link" onclick="showRegistrationForm()">Регистрация</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
