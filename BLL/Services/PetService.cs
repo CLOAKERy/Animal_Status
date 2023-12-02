@@ -62,6 +62,12 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<Pet>, IEnumerable<PetDTO>>(pets);
         }
 
+        public async Task<IEnumerable<PetDTO>> GetAllPetsWithTypesAsync()
+        {
+            IEnumerable<Pet> pets = await _unitOfWork.Pets.GetAllWithTypeAsync();
+            return _mapper.Map<IEnumerable<Pet>, IEnumerable<PetDTO>>(pets);
+        }
+
         public void Dispose()
         {
             _unitOfWork.Dispose();

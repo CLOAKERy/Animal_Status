@@ -84,7 +84,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<Pet> Pets
+        public IPetRepository Pets
         {
             get
             {

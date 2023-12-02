@@ -14,7 +14,7 @@ namespace DAL.Interfaces
         IRepository<Diet> Diets { get; }
         IRepository<Exercise> Exercises { get; }
         IRepository<Note> Notes { get; }
-        IRepository<Pet> Pets { get; }
+        IPetRepository Pets { get; }
         IRepository<PetVaccination> PetVaccination { get; }
         IRepository<PetVeterinaryRecord> PetVeterinaryRecords { get; }
         IRepository<Role> Roles { get; }

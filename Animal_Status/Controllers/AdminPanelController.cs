@@ -23,10 +23,10 @@ namespace Animal_Status.Controllers
         }
         public async Task<ActionResult> Users()
         {
-            IEnumerable<UserDTO> adoptionStatusDtos = await userService.GetAllUsersAsync();
+            IEnumerable<UserDTO> usersDtos = await userService.GetAllUsersAsync();
 
             UserIndexViewModel model = new();
-            model.userViewModel = mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserViewModel>>(adoptionStatusDtos);
+            model.userViewModel = mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserViewModel>>(usersDtos);
             return View(model);
         }
     }

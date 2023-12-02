@@ -1,47 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Animal_Status;
-
-public partial class PetViewModel
+namespace Animal_Status
 {
-    public int PetId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public partial class PetViewModel
+    {
+        public int PetId { get; set; }
 
-    public string Species { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
-    public DateTime DateOfBirth { get; set; }
+        public string Species { get; set; } = null!;
 
-    public string Gender { get; set; } = null!;
+        public DateTime DateOfBirth { get; set; }
 
-    public int OwnerId { get; set; }
+        public string Gender { get; set; } = null!;
 
-    public int? TypeId { get; set; }
+        public int OwnerId { get; set; }
 
-    public string? Picture { get; set; }
+        public int? TypeId { get; set; }
 
-    public virtual ICollection<Behavior> Behaviors { get; set; } = new List<Behavior>();
+        public string? Picture { get; set; }
 
-    public virtual ICollection<Diet> Diets { get; set; } = new List<Diet>();
+        public virtual ICollection<Behavior> Behaviors { get; set; } = new List<Behavior>();
 
-    public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
+        public virtual ICollection<Diet> Diets { get; set; } = new List<Diet>();
 
-    public virtual ICollection<Note> Notes { get; set; } = new List<Note>();
+        public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
 
-    public virtual User Owner { get; set; } = null!;
+        public virtual ICollection<Note> Notes { get; set; } = new List<Note>();
 
-    public virtual ICollection<PetVaccination> PetVaccinations { get; set; } = new List<PetVaccination>();
+        public virtual User Owner { get; set; } = null!;
 
-    public virtual ICollection<PetVeterinaryRecord> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecord>();
+        public virtual ICollection<PetVaccination> PetVaccinations { get; set; } = new List<PetVaccination>();
 
-    public virtual ICollection<SleepAndRest> SleepAndRests { get; set; } = new List<SleepAndRest>();
+        public virtual ICollection<PetVeterinaryRecord> PetVeterinaryRecords { get; set; } = new List<PetVeterinaryRecord>();
 
-    public virtual ICollection<StressLevel> StressLevels { get; set; } = new List<StressLevel>();
+        public virtual ICollection<SleepAndRest> SleepAndRests { get; set; } = new List<SleepAndRest>();
 
-    public virtual AnimalType? Type { get; set; }
+        public virtual ICollection<StressLevel> StressLevels { get; set; } = new List<StressLevel>();
 
-    public virtual ICollection<VeterinaryRecord> VeterinaryRecords { get; set; } = new List<VeterinaryRecord>();
+        public virtual AnimalType? Type { get; set; }
 
-    public virtual ICollection<WeightAndHeight> WeightAndHeights { get; set; } = new List<WeightAndHeight>();
+        public virtual ICollection<VeterinaryRecord> VeterinaryRecords { get; set; } = new List<VeterinaryRecord>();
+
+        public virtual ICollection<WeightAndHeight> WeightAndHeights { get; set; } = new List<WeightAndHeight>();
+    }
+    public class PetIndexViewModel
+    {
+        public IEnumerable<PetViewModel> petViewModel;
+    }
 }
