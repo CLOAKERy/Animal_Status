@@ -25,10 +25,16 @@ builder.Services.AddAutoMapper(typeof(BLL.Mapping.UserMapper));
 builder.Services.AddAutoMapper(typeof(Animal_Status.Mapping.UserMapper));
 builder.Services.AddAutoMapper(typeof(BLL.Mapping.PetMapper));
 builder.Services.AddAutoMapper(typeof(Animal_Status.Mapping.PetMapper));
+builder.Services.AddAutoMapper(typeof(BLL.Mapping.AnimalTypeMapper));
+builder.Services.AddAutoMapper(typeof(Animal_Status.Mapping.AnimalTypeMapper));
+builder.Services.AddAutoMapper(typeof(BLL.Mapping.VaccinationMapper));
+builder.Services.AddAutoMapper(typeof(Animal_Status.Mapping.VaccinationMapper));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVaccinationService, VaccinationService>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAnimalTypeService, AnimalTypeService>();
 builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
 var app = builder.Build();

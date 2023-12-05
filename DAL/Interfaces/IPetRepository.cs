@@ -10,5 +10,6 @@ namespace DAL.Interfaces
     public interface IPetRepository : IRepository<Pet>
     {
         public Task<IEnumerable<Pet>> GetAllWithTypeAsync();
+        public Task<Pet> GetPetDetailsAsync(int petId);
     }
 }

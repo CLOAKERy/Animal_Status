@@ -1,0 +1,318 @@
+﻿@model Animal_Status.PetViewModel
+
+@{
+    ViewBag.Title = "Pet Profile";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Изображение животного слева -->
+        <div class="col-md-4">
+            @if(Model.Picture == null)
+            {
+                <img src="~/img/blank.jpg" alt="@Model.Name" class="img-fluid" />
+            }
+            else
+            {
+                <img src="@Model.Picture" alt="@Model.Name" class="img-fluid" />
+            }
+            
+            <br />
+            <button class="btn btn-primary mt-2">Изменить изображение</button>
+        </div>
+
+        <!-- Информация о животном справа -->
+        <div class="col-md-8">
+            <h2>@Model.Name</h2>
+            <p><strong>Вид:</strong> @Model.Species</p>
+            <p><strong>Дата рождения:</strong> @Model.DateOfBirth.ToShortDateString()</p>
+            <p><strong>Пол:</strong> @Model.Gender</p>
+            <p><strong>Владелец:</strong> @Model.Owner.Name</p>
+
+            <!-- Добавьте пустые кнопки для редактирования основной информации -->
+            <button class="btn btn-primary">Редактировать информацию</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Записи для отслеживания</h3>
+
+            <!-- Добавить пустую кнопку для создания новой записи -->
+            <button class="btn btn-success">Добавить запись</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата посещения</th>
+                        <th>Описание</th>
+                        <th>Рекомендации</th>
+                        <th>Ветеринар</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.VeterinaryRecords)
+                    {
+                        <tr>
+                            <td>@record.VisitDate.ToShortDateString()</td>
+                            <td>@record.Description</td>
+                            <td>@record.Recommendations</td>
+                            <td>@record.Veterinarian</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Пример для прививок (PetVaccinations) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Прививки</h3>
+
+            <!-- Добавить пустую кнопку для создания новой прививки -->
+            <a asp-action="AddVaccine" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить прививку</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Название прививки</th>
+                        <th>Дата прививки</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vaccination in Model.PetVaccinations)
+                    {
+                        if (vaccination.PetId == Model.PetId)
+                        {
+                            <tr>
+                                <td>@vaccination.Vaccination.Name</td>
+                                <td>@vaccination.Vaccination.VaccinationDate.ToShortDateString()</td>
+                                <td>
+                                    <!-- Добавить пустые кнопки для редактирования и удаления прививки -->
+
+                                    <button class="btn btn-danger">Удалить</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Рационов (Diets) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Рационы</h3>
+
+            <!-- Добавить пустую кнопку для создания нового рациона -->
+            <button class="btn btn-success">Добавить рацион</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата рациона</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var diet in Model.Diets)
+                    {
+                        <tr>
+                            <td>@diet.DietDate.ToShortDateString()</td>
+                            <td>@diet.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления рациона -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Физической активности (Exercises) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Физическая активность</h3>
+
+            <!-- Добавить пустую кнопку для создания новой физической активности -->
+            <button class="btn btn-success">Добавить физическую активность</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата активности</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var exercise in Model.Exercises)
+                    {
+                        <tr>
+                            <td>@exercise.ActivityDate.ToShortDateString()</td>
+                            <td>@exercise.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления физической активности -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Сна и отдыха (SleepAndRests) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Сон и отдых</h3>
+
+            <!-- Добавить пустую кнопку для создания нового сна и отдыха -->
+            <button class="btn btn-success">Добавить запись</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата отдыха</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sleepAndRest in Model.SleepAndRests)
+                    {
+                        <tr>
+                            <td>@sleepAndRest.RestDate.ToShortDateString()</td>
+                            <td>@sleepAndRest.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Уровня стресса (StressLevels) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Уровень стресса</h3>
+
+            <!-- Добавить пустую кнопку для создания нового уровня стресса -->
+            <button class="btn btn-success">Добавить запись</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата стресса</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var stressLevel in Model.StressLevels)
+                    {
+                        <tr>
+                            <td>@stressLevel.StressDate.ToShortDateString()</td>
+                            <td>@stressLevel.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Поведения (Behaviors) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Поведение</h3>
+
+            <!-- Добавить пустую кнопку для создания нового поведения -->
+            <button class="btn btn-success">Добавить запись</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата поведения</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var behavior in Model.Behaviors)
+                    {
+                        <tr>
+                            <td>@behavior.BehaviorDate.ToShortDateString()</td>
+                            <td>@behavior.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Блок для Ветеринарных записей (VeterinaryRecords) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Ветеринарные записи</h3>
+
+            <!-- Добавить пустую кнопку для создания новой ветеринарной записи -->
+            <button class="btn btn-success">Добавить запись</button>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата посещения</th>
+                        <th>Описание</th>
+                        <th>Рекомендации</th>
+                        <th>Ветеринар</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var veterinaryRecord in Model.VeterinaryRecords)
+                    {
+                        <tr>
+                            <td>@veterinaryRecord.VisitDate.ToShortDateString()</td>
+                            <td>@veterinaryRecord.Description</td>
+                            <td>@veterinaryRecord.Recommendations</td>
+                            <td>@veterinaryRecord.Veterinarian</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <button class="btn btn-danger">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

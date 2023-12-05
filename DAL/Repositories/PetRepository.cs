@@ -19,5 +19,22 @@ namespace DAL.Repositories
         {
             return await _dbContext.Set<Pet>().Include(p => p.Type).ToListAsync();
         }
+
+        public async Task<Pet> GetPetDetailsAsync(int petId)
+        {
+            return await _dbContext.Set<Pet>()
+            .Include(p => p.Owner)
+            .Include(p => p.PetVaccinations)
+                .ThenInclude(v => v.Vaccination)
+            .Include(p => p.VeterinaryRecords)
+            .Include(p => p.WeightAndHeights)
+            .Include(p => p.Diets)
+            .Include(p => p.Exercises)
+            .Include(p => p.Notes)
+            .Include(p => p.SleepAndRests)
+            .Include(p => p.StressLevels)
+            .Include(p => p.Behaviors)
+            .FirstOrDefaultAsync(p => p.PetId == petId);
+        }
     }
 }

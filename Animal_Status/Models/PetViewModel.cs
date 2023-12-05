@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Animal_Status.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Animal_Status
@@ -45,6 +46,7 @@ namespace Animal_Status
         public virtual ICollection<VeterinaryRecord> VeterinaryRecords { get; set; } = new List<VeterinaryRecord>();
 
         public virtual ICollection<WeightAndHeight> WeightAndHeights { get; set; } = new List<WeightAndHeight>();
+        public IEnumerable<AnimalTypeViewModel> AnimalTypes { get; set; } = null;
     }
     public class PetIndexViewModel
     {

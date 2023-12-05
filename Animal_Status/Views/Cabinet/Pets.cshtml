@@ -12,7 +12,7 @@
         @foreach(PetViewModel item in Model.petViewModel)
         {
             <div class="col-md-4 mb-3">
-            <a href="animal-details.html" class="card text-decoration-none">
+                <a asp-action="Details" asp-route-animalId="@item.PetId" class="card text-decoration-none">
                     @if(item.Picture == null)
                     {
                         <img src="~/img/blank.jpg" class="card-img-top" alt="Animal 1">
@@ -35,10 +35,10 @@
 
         <!-- Пустая карточка для добавления -->
         <div class="col-md-4 mb-3">
-            <a href="add-animal.html" class="card text-decoration-none">
+            <a asp-area="" asp-controller="Cabinet" asp-action="Create" class="card text-decoration-none">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Add Animal</h5>
-                    <p class="card-text">Click to add a new animal.</p>
+                    <h5 class="card-title">Добавить питомца</h5>
+                    <p class="card-text">Нажмите для добавления</p>
                 </div>
             </a>
         </div>
