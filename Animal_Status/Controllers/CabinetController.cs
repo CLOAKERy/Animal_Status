@@ -4,23 +4,26 @@ using Microsoft.AspNetCore.Mvc;
 using BLL.Services;
 using Animal_Status.Models;
 using System.Collections.Generic;
+using BLL.BusinessModel;
 
 namespace Animal_Status.Controllers
 {
     public class CabinetController : Controller
     {
         private readonly IMapper mapper;
-
+        private readonly IWebHostEnvironment hostingEnvironment;
         IPetService petService;
         IAnimalTypeService animalTypeService;
         IVaccinationService vaccinationService;
 
-        public CabinetController(IPetService petService, IMapper mapper, IAnimalTypeService animalTypeService, IVaccinationService vaccinationService)
+        public CabinetController(IPetService petService, IMapper mapper, IAnimalTypeService animalTypeService, 
+            IVaccinationService vaccinationService, IWebHostEnvironment hostingEnvironment)
         {
             this.mapper = mapper;
             this.petService = petService;
             this.animalTypeService = animalTypeService;
             this.vaccinationService = vaccinationService;
+            this.hostingEnvironment = hostingEnvironment;
         }
         public async Task<ActionResult> Pets()
         {
@@ -34,12 +37,25 @@ namespace Animal_Status.Controllers
         public async Task<ActionResult> Create()
         {
             IEnumerable <AnimalTypeDTO> animalTypeDtos = await animalTypeService.GetAllAnimalTypesAsync();
-            PetViewModel petCreate = new()
+            PetViewModel typeCreate = new()
             {
                 AnimalTypes = mapper.Map<IEnumerable<AnimalTypeDTO>, IEnumerable<AnimalTypeViewModel>>(animalTypeDtos)
 
             };
-            return View(petCreate);
+            return View(typeCreate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(PetViewModel model, IFormFile imageFile)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+            string imagePath = await img.ProcessImage(imageFile, uploadFolder);
+            PetDTO petCreate = mapper.Map <PetViewModel, PetDTO> (model);
+            petCreate.OwnerId = Convert.ToInt32(User.Identity.Name);
+            petCreate.Picture = imagePath;
+            await petService.AddPet(petCreate);
+            return RedirectToAction("Pets", "Cabinet");
         }
 
         [HttpGet]
