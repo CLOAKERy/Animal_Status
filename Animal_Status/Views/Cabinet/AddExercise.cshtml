@@ -1,0 +1,24 @@
+﻿@model ExerciseViewModel
+
+@{
+    ViewData["Title"] = "Добавление Физической Активности";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="AddExercise" asp-route-petId="@Model.PetId" method="post">
+    <div class="form-group">
+        <label asp-for="ActivityDate" class="control-label">Дата активности</label>
+        <input asp-for="ActivityDate" class="form-control" />
+        <span asp-validation-for="ActivityDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

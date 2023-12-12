@@ -31,6 +31,7 @@ namespace DAL.Repositories
             .Include(p => p.Diets)
             .Include(p => p.Exercises)
             .Include(p => p.Notes)
+            .Include(p => p.Type)
             .Include(p => p.SleepAndRests)
             .Include(p => p.StressLevels)
             .Include(p => p.Behaviors)

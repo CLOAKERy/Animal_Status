@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "Pet Profile";
 }
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-<div class="container mt-5">
+
+<div class="container mt-5" id="petProfile">
     <div class="row">
         <!-- Изображение животного слева -->
         <div class="col-md-4">
@@ -18,7 +21,6 @@
             }
             
             <br />
-            <button class="btn btn-primary mt-2">Изменить изображение</button>
         </div>
 
         <!-- Информация о животном справа -->
@@ -30,44 +32,7 @@
             <p><strong>Владелец:</strong> @Model.Owner.Name</p>
 
             <!-- Добавьте пустые кнопки для редактирования основной информации -->
-            <button class="btn btn-primary">Редактировать информацию</button>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <h3>Записи для отслеживания</h3>
-
-            <!-- Добавить пустую кнопку для создания новой записи -->
-            <button class="btn btn-success">Добавить запись</button>
-
-            <table class="table mt-3">
-                <thead>
-                    <tr>
-                        <th>Дата посещения</th>
-                        <th>Описание</th>
-                        <th>Рекомендации</th>
-                        <th>Ветеринар</th>
-                        <th>Действия</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var record in Model.VeterinaryRecords)
-                    {
-                        <tr>
-                            <td>@record.VisitDate.ToShortDateString()</td>
-                            <td>@record.Description</td>
-                            <td>@record.Recommendations</td>
-                            <td>@record.Veterinarian</td>
-                            <td>
-                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
-
-                                <button class="btn btn-danger">Удалить</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <a asp-action="Redact" asp-route-petId="@Model.PetId" class="btn btn-primary">Редактировать информацию</a>
         </div>
     </div>
 
@@ -98,7 +63,8 @@
                                 <td>
                                     <!-- Добавить пустые кнопки для редактирования и удаления прививки -->
 
-                                    <button class="btn btn-danger">Удалить</button>
+                                    <a asp-action="DeleteVaccine" asp-route-vaccineId="@vaccination.PetVaccinationId"
+                                       asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                                 </td>
                             </tr>
                         }
@@ -114,7 +80,7 @@
             <h3>Рационы</h3>
 
             <!-- Добавить пустую кнопку для создания нового рациона -->
-            <button class="btn btn-success">Добавить рацион</button>
+            <a asp-action="AddDiet" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить рацион</a>
 
             <table class="table mt-3">
                 <thead>
@@ -132,8 +98,8 @@
                             <td>@diet.Description</td>
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления рациона -->
-
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteDiet" asp-route-dietId="@diet.DietId"
+                                asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
@@ -148,7 +114,7 @@
             <h3>Физическая активность</h3>
 
             <!-- Добавить пустую кнопку для создания новой физической активности -->
-            <button class="btn btn-success">Добавить физическую активность</button>
+            <a asp-action="AddExercise" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить физическую активность</a>
 
             <table class="table mt-3">
                 <thead>
@@ -167,7 +133,8 @@
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления физической активности -->
 
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteExercise" asp-route-exerciseId="@exercise.ExerciseId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
@@ -182,7 +149,7 @@
             <h3>Сон и отдых</h3>
 
             <!-- Добавить пустую кнопку для создания нового сна и отдыха -->
-            <button class="btn btn-success">Добавить запись</button>
+            <a asp-action="AddSleepAndRest" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
 
             <table class="table mt-3">
                 <thead>
@@ -201,7 +168,8 @@
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления записи -->
 
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteSleepAndRest" asp-route-sleepAndRestId="@sleepAndRest.SleepAndRestId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
@@ -216,7 +184,7 @@
             <h3>Уровень стресса</h3>
 
             <!-- Добавить пустую кнопку для создания нового уровня стресса -->
-            <button class="btn btn-success">Добавить запись</button>
+            <a asp-action="AddStressLevel" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
 
             <table class="table mt-3">
                 <thead>
@@ -235,7 +203,8 @@
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления записи -->
 
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteStressLevel" asp-route-stressLevelId="@stressLevel.StressLevelId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
@@ -250,7 +219,7 @@
             <h3>Поведение</h3>
 
             <!-- Добавить пустую кнопку для создания нового поведения -->
-            <button class="btn btn-success">Добавить запись</button>
+            <a asp-action="AddBehavior" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
 
             <table class="table mt-3">
                 <thead>
@@ -269,7 +238,8 @@
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления записи -->
 
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteBehavior" asp-route-behaviorId="@behavior.BehaviorId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
@@ -283,7 +253,7 @@
             <h3>Ветеринарные записи</h3>
 
             <!-- Добавить пустую кнопку для создания новой ветеринарной записи -->
-            <button class="btn btn-success">Добавить запись</button>
+            <a asp-action="AddVeterinaryRecord" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
 
             <table class="table mt-3">
                 <thead>
@@ -306,12 +276,41 @@
                             <td>
                                 <!-- Добавить пустые кнопки для редактирования и удаления записи -->
 
-                                <button class="btn btn-danger">Удалить</button>
+                                <a asp-action="DeleteVeterinaryRecord" asp-route-veterinaryRecordId="@veterinaryRecord.RecordId"
+                                       asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <button id="generateImage" class="btn btn-primary">Печать</button>
+            <script>
+                $(document).ready(function () {
+                    // Обработчик события для кнопки генерации изображения
+                    $('#generateImage').click(function () {
+                        // Скрыть все кнопки
+                        $('.btn').hide();
+
+                        // Получить размеры документа
+                        var container = document.getElementById('petProfile');
+                        var containerWidth = container.scrollWidth || container.offsetWidth;
+                        var containerHeight = container.scrollHeight || container.offsetHeight;
+
+                        // Использовать html2canvas для создания изображения из HTML-элементов
+                        html2canvas(container, { height: containerHeight, width: containerWidth }).then(function (canvas) {
+                            // Получить данные изображения в формате base64
+                            var imageData = canvas.toDataURL('image/png');
+
+                            // Открыть изображение в новой вкладке
+                            var imageWindow = window.open();
+                            imageWindow.document.write('<img src="' + imageData + '" />');
+
+                            // После создания изображения, снова показать все кнопки
+                            $('.btn').show();
+                        });
+                    });
+                });
+            </script>
         </div>
     </div>
 

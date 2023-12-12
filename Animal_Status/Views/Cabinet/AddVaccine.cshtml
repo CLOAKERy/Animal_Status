@@ -12,13 +12,13 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="AddVaccine" asp-route-petId="@Model.animalId" method="post" enctype="multipart/form-data">
     
 
     <div class="form-group">
         <label >Прививка</label>
-        <select  class="form-control">
-            <option value="">Выберите прививку</option>
+        <select select asp-for="vaccineId" class="form-control">
+            <option value="vaccineId">Выберите прививку</option>
             @foreach (VaccinationViewModel vaccination in Model.vaccinationViewModels)
             {
                 <option value="@vaccination.VaccinationId">@vaccination.Name</option>
@@ -29,5 +29,5 @@
 
     
 
-    <button type="submit" class="btn btn-primary">Добавить</button>
+    <button type="submit" value="" class="btn btn-primary">Добавить</button>
 </form>

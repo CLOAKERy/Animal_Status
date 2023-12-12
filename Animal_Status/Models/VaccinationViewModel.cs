@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 
 namespace Animal_Status
@@ -22,5 +23,6 @@ namespace Animal_Status
     {
         public IEnumerable<VaccinationViewModel> vaccinationViewModels { get; set; }
         public int animalId { get; set; }
+        public int vaccineId { get; set; }
     }
 }

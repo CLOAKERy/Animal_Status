@@ -1,0 +1,24 @@
+﻿@model Animal_Status.DietViewModel
+
+@{
+    ViewData["Title"] = "Создать рацион";
+}
+
+<h2>Создать новый рацион</h2>
+
+<form asp-action="AddDiet" asp-route-petId="@Model.PetId" method="post">
+    <div class="form-group">
+        <label asp-for="DietDate">Дата рациона</label>
+        <input asp-for="DietDate" class="form-control" />
+        <span asp-validation-for="DietDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Описание</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Создать</button>
+</form>
