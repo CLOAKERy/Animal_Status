@@ -82,8 +82,9 @@ namespace BLL.Services
                 {
                     throw new ValidationException($"Неверный логин или пароль", "");
                 }
+                var resultDTO = _mapper.Map<User, UserDTO>(user);
 
-                var result = Authenticate(userDTO);
+                var result = Authenticate(resultDTO);
 
                 return result;
             }

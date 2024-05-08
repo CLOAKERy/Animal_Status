@@ -16,7 +16,8 @@
                 <td>@type.TypeName</td>
                 <td>
                     <a class="btn btn-primary" asp-action="RedactTypeView" asp-route-id="@type.TypeId">Редактировать</a>
-                    <a class="btn btn-danger" asp-action="DeleteType" asp-route-id="@type.TypeId">Удалить</a>
+                    <a class="btn btn-danger" asp-action="DeleteType" asp-route-id="@type.TypeId"
+                    onclick="return confirm('Вы уверены, что хотите удалить этот тип?')">Удалить</a>
                 </td>
             </tr>
         }

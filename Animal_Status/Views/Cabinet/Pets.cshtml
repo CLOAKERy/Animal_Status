@@ -11,16 +11,18 @@
         <!-- Карточки животных -->
         @foreach(PetViewModel item in Model.petViewModel)
         {
-            <div class="col-md-4 mb-3">
-                <a asp-action="Details" asp-route-animalId="@item.PetId" class="card text-decoration-none">
-                    @if(item.Picture == null)
-                    {
-                        <img src="~/img/blank.jpg" class="card-img-top" alt="Animal 1">
-                    }
-                    else
-                    {
-                    <img src="@Url.Content(item.Picture)" class="card-img-top" alt="Animal 1">
-                    }
+            @if (User.Identity.Name == item.OwnerId.ToString())
+            {
+                <div class="col-md-4 mb-3">
+                    <a asp-action="Details" asp-route-animalId="@item.PetId" class="card text-decoration-none">
+                        @if (item.Picture == null)
+                        {
+                            <img src="~/img/blank.jpg" class="card-img-top" alt="Animal 1">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(item.Picture)" class="card-img-top" alt="Animal 1">
+                        }
                 
                 <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
@@ -28,6 +30,7 @@
                 </div>
             </a>
         </div>
+        }
         }
         
 

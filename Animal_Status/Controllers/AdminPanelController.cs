@@ -12,12 +12,14 @@ namespace Animal_Status.Controllers
 
         IUserService userService;
         IAnimalTypeService animalTypeService;
+        IVaccinationService vaccinationService;
 
-        public AdminPanelController(IUserService userService, IMapper mapper, IAnimalTypeService animalTypeService)
+        public AdminPanelController(IUserService userService, IMapper mapper, IAnimalTypeService animalTypeService, IVaccinationService vaccinationService)
         {
             this.mapper = mapper;
             this.userService = userService;
             this.animalTypeService = animalTypeService;
+            this.vaccinationService = vaccinationService;
         }
 
         public IActionResult Index()
@@ -83,6 +85,64 @@ namespace Animal_Status.Controllers
         {
             await animalTypeService.RemoveAnimalType(id);
             return RedirectToAction("Types", "AdminPanel");
+        }
+
+        public async Task<ActionResult> Vaccines()
+        {
+            IEnumerable<VaccinationDTO> vaccinesDtos = await vaccinationService.GetAllVaccinationsAsync();
+
+            IEnumerable<VaccinationViewModel> model = mapper.Map<IEnumerable<VaccinationDTO>, IEnumerable<VaccinationViewModel>>(vaccinesDtos);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CreateVaccine()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVaccine(VaccinationViewModel model)
+        {
+            VaccinationDTO vaccineCreate = mapper.Map<VaccinationViewModel, VaccinationDTO>(model);
+
+            await vaccinationService.AddVaccination(vaccineCreate);
+            return RedirectToAction("Vaccines", "AdminPanel");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> RedactVaccineView(int id)
+        {
+            VaccinationDTO vaccineDto = await vaccinationService.GetVaccinationById(id);
+
+            VaccinationViewModel model = mapper.Map<VaccinationDTO, VaccinationViewModel>(vaccineDto);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RedactVaccine(VaccinationViewModel model, int id)
+        {
+            VaccinationDTO vaccineRedact = mapper.Map<VaccinationViewModel, VaccinationDTO>(model);
+            vaccineRedact.VaccinationId = id;
+
+            await vaccinationService.UpdateVaccination(vaccineRedact);
+            return RedirectToAction("Vaccines", "AdminPanel");
+        }
+
+        public async Task<IActionResult> DeleteVaccine(int id)
+        {
+            await vaccinationService.RemoveVaccination(id);
+            return RedirectToAction("Vaccines", "AdminPanel");
+        }
+
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            await userService.RemoveUser(id);
+            return RedirectToAction("Users", "AdminPanel");
         }
     }
 }

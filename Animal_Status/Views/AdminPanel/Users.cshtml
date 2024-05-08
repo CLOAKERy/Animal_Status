@@ -3,21 +3,29 @@
 @{
    
 }
-<ul >
-    @foreach (var item in Model.userViewModel)
-    {
-        <div class="cardItem">
-            
-            <p>
-                @Html.DisplayFor(modelItem => item.Name)
-            </p>
-            <p>
-                @Html.DisplayFor(modelItem => item.Email)
-            </p>
-            <a href="#" >Edit</a>
-
-           
 
 
-        </div>
-    }
+    <h2>Пользователи</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.userViewModel)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="DeleteUser" asp-route-id="@item.UserId"
+                           onclick="return confirm('Вы уверены, что хотите удалить пользователя?')">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
