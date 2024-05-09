@@ -6,6 +6,17 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<style>
+    #imagePreview img {
+        max-width: 200px; /* Максимальная ширина изображения */
+        max-height: 200px; /* Максимальная высота изображения */
+        margin-bottom: 10px;
+        margin-top: 10px
+    }
+</style>
+
+
+
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name">Имя</label>
@@ -48,9 +59,64 @@
 
     <div class="form-group">
         <label asp-for="Picture">Фотография</label>
-        <input asp-for="Picture" name="imageFile" accept="image/*" type="file" class="form-control" />
+        <input asp-for="Picture" name="imageFile" accept="image/*" type="file" class="form-control" id="imageInput" />
         <span asp-validation-for="Picture" class="text-danger"></span>
     </div>
 
+    <div id="imagePreview"></div>
+
     <button type="submit" value="Create" class="btn btn-primary">Добавить</button>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var imageInput = document.getElementById('imageInput');
+
+        // Перетаскивание файла
+        imageInput.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        imageInput.addEventListener('drop', function (event) {
+            event.preventDefault();
+            var file = event.dataTransfer.files[0];
+            if (file.type.match('image.*')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Обновляем элемент input для загрузки файла
+                    imageInput.files = event.dataTransfer.files;
+
+                    // Обновляем превью изображения
+                    var imgPreview = document.createElement('img');
+                    imgPreview.src = e.target.result;
+                    document.getElementById('imagePreview').innerHTML = ''; // Очищаем превью
+                    document.getElementById('imagePreview').appendChild(imgPreview);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                alert('Выбранный файл не является изображением!');
+            }
+        });
+
+        // Обновление превью при выборе файла вручную
+        imageInput.addEventListener('change', function (event) {
+            var file = imageInput.files[0];
+            if (file.type.match('image.*')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Обновляем превью изображения
+                    var imgPreview = document.createElement('img');
+                    imgPreview.src = e.target.result;
+                    document.getElementById('imagePreview').innerHTML = ''; // Очищаем превью
+                    document.getElementById('imagePreview').appendChild(imgPreview);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                alert('Выбранный файл не является изображением!');
+            }
+        });
+    });
+
+
+
+</script>
