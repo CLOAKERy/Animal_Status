@@ -9,7 +9,7 @@
 <form asp-action="AddDiet" asp-route-petId="@Model.PetId" method="post">
     <div class="form-group">
         <label asp-for="DietDate">Дата рациона</label>
-        <input asp-for="DietDate" class="form-control" />
+        <input asp-for="DietDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="DietDate" class="text-danger"></span>
     </div>
 

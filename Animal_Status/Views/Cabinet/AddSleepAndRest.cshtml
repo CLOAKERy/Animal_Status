@@ -9,7 +9,7 @@
 <form asp-action="AddSleepAndRest" asp-route-petId="@Model.PetId" method="post">
     <div class="form-group">
         <label asp-for="RestDate" class="control-label">Дата отдыха</label>
-        <input asp-for="RestDate" class="form-control" />
+        <input asp-for="RestDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="RestDate" class="text-danger"></span>
     </div>
 

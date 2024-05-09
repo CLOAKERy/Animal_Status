@@ -7,7 +7,7 @@
 
     <div class="form-group">
         <label asp-for="BehaviorDate" class="control-label">Дата поведения:</label>
-        <input asp-for="BehaviorDate" class="form-control" />
+        <input asp-for="BehaviorDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="BehaviorDate" class="text-danger"></span>
     </div>
 

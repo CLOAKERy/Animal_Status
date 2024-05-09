@@ -9,7 +9,7 @@
 <form asp-action="AddStressLevel" asp-route-petId="@Model.PetId" method="post">
     <div class="form-group">
         <label asp-for="StressDate" class="control-label">Дата стресса</label>
-        <input asp-for="StressDate" class="form-control" />
+        <input asp-for="StressDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="StressDate" class="text-danger"></span>
     </div>
 

@@ -9,7 +9,7 @@
 <form asp-action="AddExercise" asp-route-petId="@Model.PetId" method="post">
     <div class="form-group">
         <label asp-for="ActivityDate" class="control-label">Дата активности</label>
-        <input asp-for="ActivityDate" class="form-control" />
+        <input asp-for="ActivityDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="ActivityDate" class="text-danger"></span>
     </div>
 

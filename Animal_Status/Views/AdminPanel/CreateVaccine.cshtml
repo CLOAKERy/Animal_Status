@@ -11,7 +11,7 @@
 
     <div class="form-group">
         <label asp-for="VaccinationDate">Дата</label>
-        <input asp-for="VaccinationDate" type="date" class="form-control" />
+        <input asp-for="VaccinationDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         <span asp-validation-for="VaccinationDate" class="text-danger"></span>
     </div>
 
