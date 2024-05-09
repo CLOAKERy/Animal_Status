@@ -1,0 +1,317 @@
+﻿@model Animal_Status.PetViewModel
+
+@{
+    ViewBag.Title = "Pet Profile";
+}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+<div class="container mt-5" id="petProfile">
+    <div class="row">
+        <!-- Изображение животного слева -->
+        <div class="col-md-4">
+            @if(Model.Picture == null)
+            {
+                <img src="~/img/blank.jpg" alt="@Model.Name" class="img-fluid" />
+            }
+            else
+            {
+                <img src="@Model.Picture" alt="@Model.Name" class="img-fluid" />
+            }
+            
+            <br />
+        </div>
+
+        <!-- Информация о животном справа -->
+        <div class="col-md-8">
+            <h2>@Model.Name</h2>
+            <p><strong>Вид:</strong> @Model.Species</p>
+            <p><strong>Дата рождения:</strong> @Model.DateOfBirth.ToShortDateString()</p>
+            <p><strong>Пол:</strong> @Model.Gender</p>
+            <p><strong>Владелец:</strong> @Model.Owner.Name</p>
+
+            <!-- Добавьте пустые кнопки для редактирования основной информации -->
+            <a asp-action="Redact" asp-route-petId="@Model.PetId" class="btn btn-primary">Редактировать информацию</a>
+        </div>
+    </div>
+
+    <!-- Пример для прививок (PetVaccinations) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Прививки</h3>
+
+            <!-- Добавить пустую кнопку для создания новой прививки -->
+            <a asp-action="AddVaccine" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить прививку</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Название прививки</th>
+                        <th>Дата прививки</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vaccination in Model.PetVaccinations)
+                    {
+                        if (vaccination.PetId == Model.PetId)
+                        {
+                            <tr>
+                                <td>@vaccination.Vaccination.Name</td>
+                                <td>@vaccination.Vaccination.VaccinationDate.ToShortDateString()</td>
+                                <td>
+                                    <!-- Добавить пустые кнопки для редактирования и удаления прививки -->
+
+                                    <a asp-action="DeleteVaccine" asp-route-vaccineId="@vaccination.PetVaccinationId"
+                                       asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Рационов (Diets) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Рационы</h3>
+
+            <!-- Добавить пустую кнопку для создания нового рациона -->
+            <a asp-action="AddDiet" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить рацион</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата рациона</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var diet in Model.Diets)
+                    {
+                        <tr>
+                            <td>@diet.DietDate.ToShortDateString()</td>
+                            <td>@diet.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления рациона -->
+                                <a asp-action="DeleteDiet" asp-route-dietId="@diet.DietId"
+                                asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Физической активности (Exercises) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Физическая активность</h3>
+
+            <!-- Добавить пустую кнопку для создания новой физической активности -->
+            <a asp-action="AddExercise" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить физическую активность</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата активности</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var exercise in Model.Exercises)
+                    {
+                        <tr>
+                            <td>@exercise.ActivityDate.ToShortDateString()</td>
+                            <td>@exercise.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления физической активности -->
+
+                                <a asp-action="DeleteExercise" asp-route-exerciseId="@exercise.ExerciseId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Сна и отдыха (SleepAndRests) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Сон и отдых</h3>
+
+            <!-- Добавить пустую кнопку для создания нового сна и отдыха -->
+            <a asp-action="AddSleepAndRest" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата отдыха</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sleepAndRest in Model.SleepAndRests)
+                    {
+                        <tr>
+                            <td>@sleepAndRest.RestDate.ToShortDateString()</td>
+                            <td>@sleepAndRest.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <a asp-action="DeleteSleepAndRest" asp-route-sleepAndRestId="@sleepAndRest.SleepAndRestId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Уровня стресса (StressLevels) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Уровень стресса</h3>
+
+            <!-- Добавить пустую кнопку для создания нового уровня стресса -->
+            <a asp-action="AddStressLevel" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата стресса</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var stressLevel in Model.StressLevels)
+                    {
+                        <tr>
+                            <td>@stressLevel.StressDate.ToShortDateString()</td>
+                            <td>@stressLevel.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <a asp-action="DeleteStressLevel" asp-route-stressLevelId="@stressLevel.StressLevelId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Блок для Поведения (Behaviors) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Поведение</h3>
+
+            <!-- Добавить пустую кнопку для создания нового поведения -->
+            <a asp-action="AddBehavior" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата поведения</th>
+                        <th>Описание</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var behavior in Model.Behaviors)
+                    {
+                        <tr>
+                            <td>@behavior.BehaviorDate.ToShortDateString()</td>
+                            <td>@behavior.Description</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <a asp-action="DeleteBehavior" asp-route-behaviorId="@behavior.BehaviorId"
+                                   asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Блок для Ветеринарных записей (VeterinaryRecords) -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3>Ветеринарные записи</h3>
+
+            <!-- Добавить пустую кнопку для создания новой ветеринарной записи -->
+            <a asp-action="AddVeterinaryRecord" asp-route-animalId="@Model.PetId" class="btn btn-success">Добавить запись</a>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Дата посещения</th>
+                        <th>Описание</th>
+                        <th>Рекомендации</th>
+                        <th>Ветеринар</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var veterinaryRecord in Model.VeterinaryRecords)
+                    {
+                        <tr>
+                            <td>@veterinaryRecord.VisitDate.ToShortDateString()</td>
+                            <td>@veterinaryRecord.Description</td>
+                            <td>@veterinaryRecord.Recommendations</td>
+                            <td>@veterinaryRecord.Veterinarian</td>
+                            <td>
+                                <!-- Добавить пустые кнопки для редактирования и удаления записи -->
+
+                                <a asp-action="DeleteVeterinaryRecord" asp-route-veterinaryRecordId="@veterinaryRecord.RecordId"
+                                       asp-route-petId="@Model.PetId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button id="generateImage" class="btn btn-primary">Печать</button>
+            <script>
+                $(document).ready(function () {
+                    // Обработчик события для кнопки генерации изображения
+                    $('#generateImage').click(function () {
+                        // Скрыть все кнопки
+                        $('.btn').hide();
+
+                        // Получить размеры документа
+                        var container = document.getElementById('petProfile');
+                        var containerWidth = container.scrollWidth || container.offsetWidth;
+                        var containerHeight = container.scrollHeight || container.offsetHeight;
+
+                        // Использовать html2canvas для создания изображения из HTML-элементов
+                        html2canvas(container, { height: containerHeight, width: containerWidth }).then(function (canvas) {
+                            // Получить данные изображения в формате base64
+                            var imageData = canvas.toDataURL('image/png');
+
+                            // Открыть изображение в новой вкладке
+                            var imageWindow = window.open();
+                            imageWindow.document.write('<img src="' + imageData + '" />');
+
+                            // После создания изображения, снова показать все кнопки
+                            $('.btn').show();
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+</div>

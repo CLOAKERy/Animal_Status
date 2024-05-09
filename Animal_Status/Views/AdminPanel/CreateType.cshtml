@@ -1,0 +1,14 @@
+﻿@model Animal_Status.Models.AnimalTypeViewModel
+
+<h2>Добавить новый тип</h2>
+
+<form asp-action="CreateType">
+    <div class="form-group">
+        <label asp-for="TypeName">Название</label>
+        <input asp-for="TypeName" class="form-control" />
+        <span asp-validation-for="TypeName" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Добавить</button>
+    <a asp-action="Types" class="btn btn-secondary">Отмена</a>
+</form>

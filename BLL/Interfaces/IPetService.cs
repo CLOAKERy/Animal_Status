@@ -14,6 +14,8 @@ namespace BLL.Interfaces
         Task RemovePet(int petId);
         Task<PetDTO> GetPetById(int petId);
         Task<IEnumerable<PetDTO>> GetAllPetsAsync();
+        Task<IEnumerable<PetDTO>> GetAllPetsWithTypesAsync();
+        Task<PetDTO> GetPetDetailsAsync(int petId);
     }
 
 }

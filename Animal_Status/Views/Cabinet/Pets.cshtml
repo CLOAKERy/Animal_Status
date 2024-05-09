@@ -1,0 +1,50 @@
+﻿@model Animal_Status.PetIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- Карточки животных -->
+        @foreach(PetViewModel item in Model.petViewModel)
+        {
+            @if (User.Identity.Name == item.OwnerId.ToString())
+            {
+                <div class="col-md-4 mb-3">
+                    <a asp-action="Details" asp-route-animalId="@item.PetId" class="card text-decoration-none">
+                        @if (item.Picture == null)
+                        {
+                            <img src="~/img/blank.jpg" class="card-img-top" alt="Animal 1">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(item.Picture)" class="card-img-top" alt="Animal 1">
+                        }
+                
+                <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Type.TypeName)</p>
+                </div>
+            </a>
+        </div>
+        }
+        }
+        
+
+        
+
+        <!-- Пустая карточка для добавления -->
+        <div class="col-md-4 mb-3">
+            <a asp-area="" asp-controller="Cabinet" asp-action="Create" class="card text-decoration-none">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Добавить питомца</h5>
+                    <p class="card-text">Нажмите для добавления</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

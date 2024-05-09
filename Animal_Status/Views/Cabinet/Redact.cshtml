@@ -1,0 +1,60 @@
+﻿@model Animal_Status.PetViewModel
+
+@{
+    ViewData["Title"] = "Редактирование питомца";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Redact" asp-route-picture="@Model.Picture" asp-route-petId="@Model.PetId" asp-route-ownerId="@Model.OwnerId" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="PetId" />
+
+    <div class="form-group">
+        <label asp-for="Name">Имя</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Species">Вид</label>
+        <input asp-for="Species" class="form-control" />
+        <span asp-validation-for="Species" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Дата рождения</label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender">Пол</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="Male">Мужской</option>
+            <option value="Female">Женский</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TypeId">Тип животного</label>
+        <select asp-for="TypeId" class="form-control">
+            <option value="">Выберите тип</option>
+            @foreach (var animalType in Model.AnimalTypes)
+            {
+                <option value="@animalType.TypeId" selected="@(@animalType.TypeId == Model.TypeId)">
+                    @animalType.TypeName
+                </option>
+            }
+        </select>
+        <span asp-validation-for="TypeId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Picture">Фотография</label>
+        <input asp-for="Picture" name="imageFile" accept="image/*" type="file" class="form-control" />
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+
+    <button type="submit"  class="btn btn-primary">Сохранить изменения</button>
+</form>

@@ -1,0 +1,36 @@
+﻿@model Animal_Status.VeterinaryRecordViewModel
+
+<h2>Ветеринарная Запись</h2>
+
+<form asp-action="AddVeterinaryRecord" asp-route-petId="@Model.PetId" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="VisitDate" class="control-label">Дата посещения:</label>
+        <input asp-for="VisitDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+        <span asp-validation-for="VisitDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Recommendations" class="control-label">Рекомендации:</label>
+        <textarea asp-for="Recommendations" class="form-control"></textarea>
+        <span asp-validation-for="Recommendations" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Veterinarian" class="control-label">ФИО ветеринара:</label>
+        <input asp-for="Veterinarian" class="form-control" />
+        <span asp-validation-for="Veterinarian" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
+</form>
