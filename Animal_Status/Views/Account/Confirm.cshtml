@@ -1,0 +1,16 @@
+﻿@model Animal_Status.AccountViewModel
+
+@{
+
+    <form asp-controller="Account" asp-action="ConfirmComplete" method="post">
+        <input type="hidden" asp-for="registerViewModel.Email" />
+        <input type="hidden" asp-for="registerViewModel.Password" />
+        <input type="hidden" asp-for="registerViewModel.PasswordConfirm" />
+        <input type="hidden" asp-for="registerViewModel.Name" />
+        <input type="hidden" asp-for="Code" />
+        <label for="Code">Введите код подтверждения</label>
+        <input type="text" asp-for="CodeFromForm" />
+        <button type="submit">Подтвердить</button>
+    </form>
+
+}
