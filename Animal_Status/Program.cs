@@ -36,6 +36,7 @@ builder.Services.AddAutoMapper(typeof(BLL.Mapping.SleepAndRestMapper));
 builder.Services.AddAutoMapper(typeof(BLL.Mapping.StressLevelMapper));
 builder.Services.AddAutoMapper(typeof(BLL.Mapping.BehaviorMapper));
 builder.Services.AddAutoMapper(typeof(BLL.Mapping.VeterinaryRecordMapper));
+builder.Services.AddAutoMapper(typeof(BLL.Mapping.WeightAndHeightMapper));
 
 builder.Services.AddScoped<IBehaviorService, BehaviorService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IVaccinationService, VaccinationService>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAnimalTypeService, AnimalTypeService>();
+builder.Services.AddScoped<IWeightAndHeightService, WeightAndHeightService>();
 builder.Services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
 var app = builder.Build();

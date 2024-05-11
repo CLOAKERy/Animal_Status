@@ -22,12 +22,13 @@ namespace Animal_Status.Controllers
         IStressLevelService stressLevelService;
         IBehaviorService behaviorService;
         IVeterinaryRecordService veterinaryRecordService;
+        IWeightAndHeightService weightAndHeightService;
 
         public CabinetController(IPetService petService, IMapper mapper, IAnimalTypeService animalTypeService, 
             IVaccinationService vaccinationService, IWebHostEnvironment hostingEnvironment,
             IPetVaccinationService petVaccinationService, IDietService dietService, IExerciseService exerciseService,
             ISleepAndRestService sleepAndRestService, IStressLevelService stressLevelService, IBehaviorService behaviorService,
-            IVeterinaryRecordService veterinaryRecordService)
+            IVeterinaryRecordService veterinaryRecordService, IWeightAndHeightService weightAndHeightService)
         {
             this.mapper = mapper;
             this.petService = petService;
@@ -41,6 +42,7 @@ namespace Animal_Status.Controllers
             this.stressLevelService = stressLevelService;
             this.behaviorService = behaviorService;
             this.veterinaryRecordService = veterinaryRecordService;
+            this.weightAndHeightService = weightAndHeightService;
         }
         public async Task<ActionResult> Pets()
         {
@@ -323,6 +325,38 @@ namespace Animal_Status.Controllers
         {
 
             await veterinaryRecordService.RemoveVeterinaryRecord(veterinaryRecordId);
+
+            return RedirectToAction("Details", "Cabinet", new { animalId = petId });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AddWeightAndHeight(int petId)
+        {
+            WeightAndHeightViewModel model = new();
+            model.PetId = petId;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddWeightAndHeight(WeightAndHeightViewModel model, int petId)
+        {
+            WeightAndHeightDTO weightAndHeightDTO = new()
+            {
+                PetId = petId,
+                MeasurementDate = model.MeasurementDate,
+                Weight = model.Weight,
+                Height = model.Height,
+
+            };
+            await weightAndHeightService.AddWeightAndHeight(weightAndHeightDTO);
+
+            return RedirectToAction("Details", "Cabinet", new { animalId = petId });
+        }
+
+        public async Task<ActionResult> DeleteWeightAndHeight(int measurementId, int petId)
+        {
+
+            await weightAndHeightService.RemoveWeightAndHeight(measurementId);
 
             return RedirectToAction("Details", "Cabinet", new { animalId = petId });
         }
