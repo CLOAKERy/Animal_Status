@@ -14,6 +14,7 @@ namespace BLL.Interfaces
         Task RemoveWeightAndHeight(int weightAndHeightId);
         Task<WeightAndHeightDTO> GetWeightAndHeightById(int weightAndHeightId);
         Task<IEnumerable<WeightAndHeightDTO>> GetAllWeightAndHeightsAsync();
+        Task<IEnumerable<WeightAndHeightDTO>> GetAllSortedAsync(int petId);
     }
 
 }

@@ -32,7 +32,8 @@
             <p><strong>Владелец:</strong> @Model.Owner.Name</p>
 
             <!-- Добавьте пустые кнопки для редактирования основной информации -->
-            <a asp-action="Redact" asp-route-petId="@Model.PetId" class="btn btn-primary">Редактировать информацию</a>
+            <p><a asp-action="Redact" asp-route-petId="@Model.PetId" class="btn btn-primary">Редактировать информацию</a></p>
+            <p><a asp-action="Gallery" asp-route-animalId="@Model.PetId" class="btn btn-primary">Галерея</a></p>
         </div>
     </div>
 
@@ -78,7 +79,8 @@
     <div class="row mt-3">
         <div class="col-md-12">
             <h3>Рост и Вес</h3>
-
+            <!-- Кнопка для перехода к графику -->
+            <a asp-action="CreateChart" asp-controller="Chart" asp-route-petId="@Model.PetId" class="btn btn-primary">Посмотреть график</a>
             <!-- Добавить пустую кнопку для создания нового измерения -->
             <a asp-action="AddWeightAndHeight" asp-route-petId="@Model.PetId" class="btn btn-success">Добавить измерение</a>
 

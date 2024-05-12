@@ -1,0 +1,107 @@
+﻿@model Animal_Status.AnimalGalleryViewModel
+
+<div class="container">
+    <h2 class="mt-5 mb-4">Галерея животного № @Model.AnimalId</h2>
+
+    <div class="row">
+        @foreach (var imagePath in Model.ImagePaths)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <a href="#" data-toggle="modal" data-target="#imageModal-@Model.AnimalId-@(Model.ImagePaths.IndexOf(imagePath))">
+                        <img src="~/AnimalImages/@Model.AnimalId/@imagePath" class="card-img-top thumbnail" alt="animal-image">
+                    </a>
+                    <div class="card-body">
+                        <!-- Можете добавить текст или что-то еще, если нужно -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Модальное окно для просмотра изображения -->
+            <div class="modal fade" id="imageModal-@Model.AnimalId-@(Model.ImagePaths.IndexOf(imagePath))" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalLabel">Просмотр изображения</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="~/AnimalImages/@Model.AnimalId/@imagePath" class="img-fluid" alt="animal-image">
+                            <form action="@Url.Action("DeletePhoto", "Cabinet")" method="post">
+                                <input type="hidden" name="photoPath" value="\wwwroot\AnimalImages\@Model.AnimalId\@imagePath" />
+                                <input type="hidden" name="animalId" value="@Model.AnimalId" />
+                                <button type="submit" class="btn btn-danger mt-2">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <form id="uploadForm" action="@Url.Action("UploadFile", new { animalId = Model.AnimalId })" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imageFile">Выберите фото для загрузки:</label>
+                    <input type="file" class="form-control-file" id="imageFile" name="imageFile">
+                </div>
+                <button type="submit" class="btn btn-primary">Загрузить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<script>
+    // Обработка событий перетаскивания файлов
+    var dropArea = document.body;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+    });
+
+    function highlight(e) {
+        dropArea.classList.add('highlight');
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        var imageFileInput = document.getElementById('imageFile');
+        imageFileInput.files = files; // Присваиваем перетаскиваемые файлы в input для загрузки
+        document.getElementById('uploadForm').submit(); // Автоматически отправляем форму после перетаскивания
+    }
+</script>

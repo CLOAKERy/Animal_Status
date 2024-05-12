@@ -174,7 +174,7 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<WeightAndHeight> WeightAndHeights
+        public IWeightAndHeightRepository WeightAndHeights
         {
             get
             {

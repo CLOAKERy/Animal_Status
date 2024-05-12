@@ -5,6 +5,9 @@ using BLL.Services;
 using Animal_Status.Models;
 using System.Collections.Generic;
 using BLL.BusinessModel;
+using Microsoft.AspNetCore.Hosting.Server;
+
+
 
 namespace Animal_Status.Controllers
 {
@@ -359,6 +362,66 @@ namespace Animal_Status.Controllers
             await weightAndHeightService.RemoveWeightAndHeight(measurementId);
 
             return RedirectToAction("Details", "Cabinet", new { animalId = petId });
+        }
+
+        public ActionResult Gallery(int animalId)
+        {
+            string basePath = Path.Combine(hostingEnvironment.WebRootPath, "AnimalImages", animalId.ToString());
+            var imagePaths = Directory.Exists(basePath) ? Directory.EnumerateFiles(basePath).Select(Path.GetFileName).ToList() : new List<string>();
+
+            var viewModel = new AnimalGalleryViewModel
+            {
+                AnimalId = animalId,
+                ImagePaths = imagePaths
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UploadFile(int animalId, IFormFile imageFile)
+        {
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                string basePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "AnimalImages", animalId.ToString());
+                if (!Directory.Exists(basePath))
+                {
+                    Directory.CreateDirectory(basePath);
+                }
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                string filePath = Path.Combine(basePath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+            }
+
+            return RedirectToAction("Gallery", new { animalId });
+        }
+
+        [HttpPost]
+        public ActionResult DeletePhoto(string photoPath, int animalId)
+        {
+            string path = hostingEnvironment.ContentRootPath + photoPath;
+            try
+            {
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                    return RedirectToAction("Gallery", new { animalId });
+                }
+                else
+                {
+                    return RedirectToAction("Gallery", new { animalId });
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                return RedirectToAction("Gallery", new { animalId });
+            }
         }
     }
 }

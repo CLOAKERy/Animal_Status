@@ -77,8 +77,10 @@ namespace Animal_Status.Controllers
             [HttpPost]
             public async Task<IActionResult> Login(AccountViewModel model)
             {
-
+            
             ModelState.Remove("registerViewModel");
+            ModelState.Remove("CodeFromForm");
+            ModelState.Remove("Code");
 
             if (ModelState.IsValid)
                 {

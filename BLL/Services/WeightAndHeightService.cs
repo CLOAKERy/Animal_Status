@@ -62,6 +62,12 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<WeightAndHeight>, IEnumerable<WeightAndHeightDTO>>(weightAndHeights);
         }
 
+        public async Task<IEnumerable<WeightAndHeightDTO>> GetAllSortedAsync(int petId)
+        {
+            IEnumerable<WeightAndHeight> weightAndHeights = await _unitOfWork.WeightAndHeights.GetAllSortedAsync(petId);
+            return _mapper.Map<IEnumerable<WeightAndHeight>, IEnumerable<WeightAndHeightDTO>>(weightAndHeights);
+        }
+
         public void Dispose()
         {
             _unitOfWork.Dispose();

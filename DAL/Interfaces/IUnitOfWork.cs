@@ -23,7 +23,7 @@ namespace DAL.Interfaces
         IUserRepository Users { get; }
         IRepository<Vaccination> Vaccinations { get; }
         IRepository<VeterinaryRecord> VeterinaryRecord { get; }
-        IRepository<WeightAndHeight> WeightAndHeights { get; }
+        IWeightAndHeightRepository WeightAndHeights { get; }
         void Save();
     }
 }
