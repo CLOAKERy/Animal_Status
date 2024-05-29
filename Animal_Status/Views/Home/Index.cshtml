@@ -2,17 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 @await Html.PartialAsync("_ModalPartial")
+
 <div class="container mt-5">
+    <!-- Carousel -->
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="~/img/carousel11.png" class="d-block w-100" alt="Slide 1" >
+                <img src="~/img/carousel11.png" class="d-block w-100" alt="Slide 1">
             </div>
             <div class="carousel-item">
-                <img src="~/img/carousel12.png" class="d-block w-100" alt="Slide 2" >
+                <img src="~/img/carousel12.png" class="d-block w-100" alt="Slide 2">
             </div>
             <div class="carousel-item">
-                <img src="~/img/carousel13.png" class="d-block w-100" alt="Slide 3" >
+                <img src="~/img/carousel13.png" class="d-block w-100" alt="Slide 3">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
@@ -26,3 +28,45 @@
     </div>
 </div>
 
+<!-- Информация под каруселью -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Первая карточка -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/img/health.jpg" class="card-img-top" alt="Health and Care">
+                <div class="card-body">
+                    <h5 class="card-title">Здоровье и Уход</h5>
+                    <p class="card-text">Следите за здоровьем вашего питомца с помощью нашего приложения. Ведите журнал посещений ветеринара, запоминайте вакцинации.</p>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Вторая карточка -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/img/food.jpg" class="card-img-top" alt="Nutrition and Diet">
+                <div class="card-body">
+                    <h5 class="card-title">Питание и Диета</h5>
+                    <p class="card-text">Составьте план питания для вашего питомца, учитывая его особенности и потребности. Наше приложение поможет вам следить за приемом пищи.</p>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Третья карточка -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="~/img/activity.jpg" class="card-img-top" alt="Activity and Play">
+                <div class="card-body">
+                    <h5 class="card-title">Активность и Игры</h5>
+                    <p class="card-text">Держите вашего питомца в отличной форме! Следите за его физической активностью, планируйте игры и прогулки.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
