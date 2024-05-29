@@ -1,59 +1,113 @@
 ﻿@model Animal_Status.AccountViewModel
 
 @{
-
+    Layout = null;
 }
 
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Авторизация</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Форма для входа (изначально видима) -->
-                <form id="loginForm" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email адрес</label>
-                        <input asp-for="loginViewModel.Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Пароль</label>
-                        <input asp-for="loginViewModel.Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Войти</button>
-                </form>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Авторизация и регистрация</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Авторизация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Форма для входа (изначально видима) -->
+                    <form id="loginForm" autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email адрес</label>
+                            <input asp-for="loginViewModel.Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email">
+                            <span asp-validation-for="loginViewModel.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Пароль</label>
+                            <input asp-for="loginViewModel.Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+                            <span asp-validation-for="loginViewModel.Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                    </form>
 
-                <!-- Форма для регистрации (изначально скрыта) -->
-                <form id="registrationForm" style="display:none;" asp-controller="Account" asp-action="Register">
-                    <div class="form-group">
-                        <label for="exampleInputName">Имя</label>
-                        <input asp-for="registerViewModel.Name" type="text" class="form-control" id="exampleInputName" placeholder="Введите имя">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2">Email адрес</label>
-                        <input asp-for="registerViewModel.Email" type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Введите email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword2">Пароль</label>
-                        <input asp-for="registerViewModel.Password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Пароль">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword2">Повторите пароль</label>
-                        <input asp-for="registerViewModel.PasswordConfirm" type="password" class="form-control" id="exampleInputPassword2" placeholder="Повторите пароль">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
-                </form>
+                    <!-- Форма для регистрации (изначально скрыта) -->
+                    <form id="registrationForm" style="display:none;" method="post" asp-controller="Account" asp-action="Register">
+                        <div class="form-group">
+                            <label for="exampleInputName">Имя</label>
+                            <input asp-for="registerViewModel.Name" type="text" class="form-control" id="exampleInputName" placeholder="Введите имя">
+                            <span asp-validation-for="registerViewModel.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Email адрес</label>
+                            <input asp-for="registerViewModel.Email" type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Введите email">
+                            <span asp-validation-for="registerViewModel.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword2">Пароль</label>
+                            <input asp-for="registerViewModel.Password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Пароль">
+                            <span asp-validation-for="registerViewModel.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPasswordConfirm">Повторите пароль</label>
+                            <input asp-for="registerViewModel.PasswordConfirm" type="password" class="form-control" id="exampleInputPasswordConfirm" placeholder="Повторите пароль">
+                            <span asp-validation-for="registerViewModel.PasswordConfirm" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                    </form>
 
-                <!-- Кнопки для переключения между формами -->
-                <div class="text-center mt-3">
-                    <button type="button" class="btn btn-link" onclick="showLoginForm()">Вход</button>
-                    <button type="button" class="btn btn-link" onclick="showRegistrationForm()">Регистрация</button>
+                    <!-- Кнопки для переключения между формами -->
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-link" onclick="showLoginForm()">Вход</button>
+                        <button type="button" class="btn btn-link" onclick="showRegistrationForm()">Регистрация</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script>
+        function showLoginForm() {
+            $('#loginForm').show();
+            $('#registrationForm').hide();
+        }
+
+        function showRegistrationForm() {
+            $('#loginForm').hide();
+            $('#registrationForm').show();
+        }
+
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: $(form).attr('action'),
+                        type: $(form).attr('method'),
+                        data: $(form).serialize(),
+                        success: function (response) {
+                            // Handle success response
+                            alert("Success!");
+                        },
+                        error: function (response) {
+                            // Handle error response
+                            alert("Error!");
+                        }
+                    });
+                }
+            });
+
+            $('#loginForm').validate();
+            $('#registrationForm').validate();
+        });
+    </script>
+</body>
+</html>

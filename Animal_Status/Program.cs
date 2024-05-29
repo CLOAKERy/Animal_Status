@@ -1,4 +1,5 @@
 using Animal_Status;
+using Animal_Status.Util;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.Interfaces;
@@ -12,7 +13,10 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 builder.Services.AddDbContext<AnimalServiceContext>(options => options.UseSqlServer(connection));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<CustomExceptionFilter>();
+});
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
         {
